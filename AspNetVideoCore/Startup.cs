@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +17,13 @@ namespace AspNetVideoCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true);
+
+            Configuration = builder.Build();
+
         }
+
 
         public IConfiguration Configuration { get; }
 
@@ -29,6 +36,13 @@ namespace AspNetVideoCore
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            var conn = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn));
+
+            //services.AddSingleton(provider => Configuration);
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
