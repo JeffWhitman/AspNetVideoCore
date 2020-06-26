@@ -12,7 +12,13 @@ namespace AspNetVideoCore.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new List<Video>
+            {
+                new Video{ Id=1, Title="3:10 to Yuma"},
+                new Video{ Id=2, Title="Transporter"},
+                new Video{ Id=3, Title="Death Race"}
+            };
+            return View(model);
         }
 
         public IActionResult About()
