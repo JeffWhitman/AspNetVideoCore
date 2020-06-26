@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Video>
+﻿@model IEnumerable<VideoViewModel>
 
 <title>Videos</title>
 <h1>Videos</h1>
@@ -7,13 +7,17 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Genre</th>
+
     </tr>
 
     @foreach (var video in Model)
     {
-        <tr>
-            <td>@video.Id</td>
-            <td>@video.Title</td>
-        </tr>
+    <tr>
+        <td>@video.Id</td>
+        <td>@video.Title</td>
+        <td>@video.Genre</td>
+
+    </tr>
     }
 </table>

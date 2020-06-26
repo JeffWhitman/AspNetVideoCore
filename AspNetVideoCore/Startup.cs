@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetVideoCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +42,7 @@ namespace AspNetVideoCore
             //services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn));
 
             //services.AddSingleton(provider => Configuration);
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IVideoData, MockVideoData>();
             //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 
