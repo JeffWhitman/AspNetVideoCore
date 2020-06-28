@@ -14,7 +14,7 @@
     @foreach (var video in Model)
     {
     <tr>
-        <td>@video.Id</td>
+        <td><a asp-action="Details" asp-route-id="@video.Id">@video.Id</a></td>
         <td>@video.Title</td>
         <td>@video.Genre</td>
 

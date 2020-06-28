@@ -23,6 +23,12 @@ namespace AspNetVideoCore.Controllers
 
             return View(model);
         }
+        public IActionResult Details(int Id)
+        {
+            var model=videos.Get(Id);
+
+            return View(new VideoViewModel { Id=model.Id,Title=model.Title,Genre=Enum.GetName(typeof(Genres),model.GenreId)});
+        }
 
         public IActionResult About()
         {

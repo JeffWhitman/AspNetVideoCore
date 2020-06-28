@@ -10,5 +10,6 @@ namespace AspNetVideoCore.Services
     public interface IVideoData
     {
         IEnumerable<Video> GetAll();
+        Video Get(int id);
     }
 }
