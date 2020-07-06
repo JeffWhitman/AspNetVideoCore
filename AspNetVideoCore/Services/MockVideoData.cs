@@ -21,6 +21,12 @@ namespace AspNetVideoCore.Services
 
         }
 
+        public void Add(Video newVideo)
+        {
+            newVideo.Id = videos.Max(v => v.Id) + 1;
+            videos.Add(newVideo);
+        }
+
         public Video Get(int id)
         {
             return videos.FirstOrDefault(v=>v.Id.Equals(id));  

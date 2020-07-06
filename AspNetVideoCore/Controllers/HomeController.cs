@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AspNetVideoCore.Models;
 using AspNetVideoCore.Services;
 using AspNetVideoCore.ViewModels;
+using AspNetVideoCore.Entities;
 
 namespace AspNetVideoCore.Controllers
 {
@@ -19,7 +20,7 @@ namespace AspNetVideoCore.Controllers
         }
         public IActionResult Index()
         {
-            var model = videos.GetAll().Select(video=> new VideoViewModel {Id=video.Id,Title=video.Title,Genre=Enum.GetName(typeof(Genres),video.GenreId) });
+            var model = videos.GetAll().Select(video=> new VideoViewModel {Id=video.Id,Title=video.Title,Genre=video.Genre.ToString() });
 
             return View(model);
         }
@@ -27,7 +28,33 @@ namespace AspNetVideoCore.Controllers
         {
             var model=videos.Get(Id);
 
-            return View(new VideoViewModel { Id=model.Id,Title=model.Title,Genre=Enum.GetName(typeof(Genres),model.GenreId)});
+            return View(new VideoViewModel { Id=model.Id,Title=model.Title,Genre=model.Genre.ToString()});
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(VideoEditViewModel model )
+        {
+            var video = new Video
+            {
+                Title = model.Title,
+                Genre = model.Genre
+            };
+            videos.Add(video);
+
+            return RedirectToAction("Details",new { id=video.Id});
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var video = videos.Get(id);
+
+            if (video == null) return RedirectToAction("Index");
+
+            return View(video);
         }
 
         public IActionResult About()
@@ -55,4 +82,5 @@ namespace AspNetVideoCore.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
 }

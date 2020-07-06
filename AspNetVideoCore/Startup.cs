@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AspNetVideoCore.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,12 +41,12 @@ namespace AspNetVideoCore
             });
 
             var conn = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conn));
 
-            //services.AddSingleton(provider => Configuration);
-            services.AddScoped<IVideoData, MockVideoData>();
+            services.AddSingleton(provider => Configuration);
+            services.AddScoped<IVideoData, SqlVideoData>();
             //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+            //services.AddSingleton<IVideoData, MockVideoData>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -3,12 +3,14 @@
 <title>Videos</title>
 <h1>Videos</h1>
 
+<a asp-action="Create" class="btn btn-primary">Create a New Video</a>
 <table>
     <tr>
         <th>Id</th>
         <th>Title</th>
         <th>Genre</th>
-
+        <th></th>
+        <th></th>
     </tr>
 
     @foreach (var video in Model)
@@ -17,7 +19,9 @@
         <td><a asp-action="Details" asp-route-id="@video.Id">@video.Id</a></td>
         <td>@video.Title</td>
         <td>@video.Genre</td>
-
+        <td><a asp-action="Details" asp-route-id="@video.Id">Details</a></td>
+        ||
+        <td><a asp-action="Edit" asp-route-id="@video.Id">Edit</a></td>
     </tr>
     }
 </table>
